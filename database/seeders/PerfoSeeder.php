@@ -12,6 +12,12 @@ class PerfoSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Perfo::factory()->count(1_000_000)->create();
+        $batchSize = 10000;
+        $total = 1_000_000;
+
+        for ($i = 0; $i < $total / $batchSize; $i++) {
+            \App\Models\Perfo::factory()->count($batchSize)->create();
+            echo "Seeded " . ($i + 1) * $batchSize . " records...\n";
+        }
     }
 }
